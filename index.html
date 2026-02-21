@@ -2,342 +2,497 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vasantha Rajan M - Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Vasantha Rajan M | Software Developer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Exact color matches from your PDF */
+        /* --- CSS VARIABLES (Theme Colors) --- */
         :root {
-            --bg-page: #d1dcf0;       /* Outer browser background */
-            --bg-resume: #8ba9d4;     /* Main blue document background */
-            --box-blue: #5c83bc;      /* Right column dark blue boxes */
-            --purple-accent: #8e44ad; /* Banner and border purple */
-            --text-white: #ffffff;
-            --text-black: #000000;
-            --font-serif: 'Liberation Serif', 'Times New Roman', Times, serif;
+            /* A modern gradient background */
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --text-light: #ffffff;
+            /* Accent colors based on your previous purple/blue preference */
+            --accent-blue: #4c51bf; 
+            --accent-purple: #805ad5;
+            --card-bg: #ffffff;
+            --section-bg-blue: #ebf4ff;
+            --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.06);
         }
 
+        /* --- GLOBAL RESET & BASE STYLES --- */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-page);
-            font-family: var(--font-serif);
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-primary);
+            line-height: 1.7;
             padding: 20px;
-            display: flex;
-            justify-content: center;
+            min-height: 100vh;
         }
 
-        .resume-wrapper {
-            background-color: var(--bg-resume);
-            width: 100%;
-            max-width: 950px;
-            padding: 40px 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        /* The main container that constrains width on large screens */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--text-light);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
-        /* --- TOP HEADER (Image + Connected Banner) --- */
-        .top-header {
+        a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
+        ul { list-style: none; }
+
+        /* Utility classes for typography */
+        h1, h2, h3 { color: var(--text-primary); font-weight: 700; }
+        .text-accent { color: var(--accent-blue); }
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        /* Adds a small underline accent to titles */
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+            border-radius: 2px;
+        }
+
+        /* --- HEADER & HERO SECTION --- */
+        header {
+            padding: 40px;
+            background: linear-gradient(to right, #ffffff, #f7fafc);
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .hero-wrapper {
             display: flex;
             align-items: center;
-            margin-bottom: 25px;
+            gap: 40px;
+            flex-wrap: wrap; /* Allows wrapping on smaller screens */
         }
 
-        .profile-col {
-            width: 32%;
-            display: flex;
-            justify-content: center;
+        .profile-image-container {
+            flex-shrink: 0;
             position: relative;
-            z-index: 10; /* Keeps image above the banner */
         }
 
+        /* The glowing ring around the photo */
         .profile-img {
-            width: 180px;
-            height: 180px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
-            border: 12px solid var(--purple-accent);
             object-fit: cover;
-            background-color: white; /* Fallback if image path is broken */
+            border: 5px solid var(--card-bg);
+            box-shadow: 0 0 20px rgba(76, 81, 191, 0.3);
+            position: relative;
+            z-index: 2;
         }
 
-        .title-col {
-            width: 68%;
+        /* Decorative background blob behind photo */
+        .profile-image-container::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: linear-gradient(135deg, rgba(76, 81, 191, 0.2) 0%, rgba(128, 90, 213, 0.2) 100%);
+            z-index: 1;
+            border-radius: 50%;
+            filter: blur(20px);
+        }
+
+        .hero-content {
+            flex-grow: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        /* The Header Links Area */
+        .header-actions {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .title-banner {
-            background-color: var(--purple-accent);
-            padding: 15px 20px 15px 70px; /* Extra left padding for the overlap */
-            margin-left: -50px; /* Pulls banner directly under the profile circle */
-            border-radius: 0 40px 40px 0;
-            text-align: center;
-            color: var(--text-black);
-        }
-
-        .title-banner h1 {
-            font-size: 2.5rem;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-
-        .title-banner h2 {
-            font-size: 1.4rem;
-            font-weight: normal;
-        }
-
-        .header-links {
-            text-align: center;
-            padding-top: 10px;
-            font-size: 1.05rem;
-            font-weight: bold;
-        }
-
-        .header-links a {
-            color: var(--purple-accent);
-            text-decoration: none;
-        }
-
-        /* --- TWO COLUMN LAYOUT --- */
-        .content-body {
-            display: flex;
-            gap: 25px;
-        }
-
-        /* --- LEFT COLUMN --- */
-        .left-col {
-            width: 32%;
-            display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             gap: 20px;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #edf2f7;
         }
 
-        .left-box {
-            border: 5px solid var(--purple-accent);
-            border-radius: 20px;
-            padding: 20px 15px;
-            color: var(--text-white);
-        }
-
-        .left-box h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            color: var(--text-white);
-        }
-
-        .left-box p, .left-box ul {
-            font-size: 1.05rem;
-            list-style: none;
-            line-height: 1.8;
-        }
-
-        .left-box strong {
-            font-size: 1.1rem;
-        }
-
-        /* --- RIGHT COLUMN --- */
-        .right-col {
-            width: 68%;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .right-box {
-            background-color: var(--box-blue);
-            border-radius: 20px;
-            padding: 20px;
-            color: var(--text-white);
-            line-height: 1.6;
-        }
-
-        .right-box h3 {
-            color: var(--text-black);
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .project-item {
-            margin-bottom: 15px;
-        }
-
-        .project-item strong {
+        .link-group a {
             display: block;
-            margin-bottom: 3px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            font-size: 0.95rem;
+        }
+        .link-group a:hover { color: var(--accent-purple); text-decoration: underline; }
+
+        /* --- THE DOWNLOAD BUTTON --- */
+        .btn-download {
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        /* Skills Split Layout with vertical line */
-        .skills-container {
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            filter: brightness(1.1);
+        }
+        
+        /* Hide the download button when actually printing */
+        @media print {
+            .btn-download { display: none !important; }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; }
+        }
+
+
+        /* --- MAIN CONTENT GRID LAYOUT --- */
+        /* This is the core of the responsive design */
+        main {
+            display: grid;
+            /* By default (mobile), 1 column */
+            grid-template-columns: 1fr; 
+            gap: 30px;
+            padding: 40px;
+            background-color: #f8fbff;
+        }
+
+        /* On larger screens (tablets and up), split into 2 columns */
+        @media (min-width: 900px) {
+            main {
+                /* Left column 35%, Right column 65% */
+                grid-template-columns: 3.5fr 6.5fr;
+            }
+            /* Sticky sidebar for desktop */
+            .sidebar-column {
+                position: sticky;
+                top: 40px;
+                align-self: start;
+            }
+        }
+
+        /* --- CARDS & SECTIONS --- */
+        .content-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 30px;
+            border: 1px solid #edf2f7;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-card:hover {
+            box-shadow: var(--shadow-hover);
+            /* Subtle lift effect on hover */
+            transform: translateY(-5px);
+        }
+
+        /* Specific card styling */
+        .card-blue-accent {
+            background: linear-gradient(to bottom right, #ffffff, #f3f4fd);
+            border-left: 5px solid var(--accent-blue);
+        }
+        
+        .card-purple-accent {
+             background: linear-gradient(to bottom right, #ffffff, #fbf3fd);
+             border-left: 5px solid var(--accent-purple);
+        }
+
+        /* --- LIST STYLES (Contact, Skills) --- */
+        .info-list li {
+            margin-bottom: 15px;
             display: flex;
+            flex-direction: column;
+        }
+        .info-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+        }
+        .info-value { font-size: 1.1rem; word-break: break-word; }
+
+        .skill-tag-list { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-tag {
+            background: var(--section-bg-blue);
+            color: var(--accent-blue);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
-        .skills-left {
-            width: 50%;
-            padding-right: 15px;
-            border-right: 2px solid rgba(255,255,255,0.4); /* The vertical line */
+        /* --- PROJECT ITEMS --- */
+        .project-item {
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #edf2f7;
+        }
+        .project-item:last-child { border-bottom: none; }
+        .project-title { font-size: 1.2rem; margin-bottom: 5px; }
+        .tech-stack {
+            font-family: monospace;
+            color: var(--accent-purple);
+            background: #f3ebff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-top: 10px;
         }
 
-        .skills-right {
-            width: 50%;
-            padding-left: 20px;
-        }
-
+        /* --- EDUCATION TIMELINE STYLE --- */
         .education-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 20px;
+        }
+        /* Vertical line connects education items */
+        .education-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            bottom: -25px;
+            width: 2px;
+            background: var(--accent-blue);
+            opacity: 0.3;
+        }
+        .education-item:last-child::before { display: none; }
+
+        .edu-details strong { display: block; font-size: 1.1rem; color: var(--accent-blue); }
+        .edu-date {
+            font-weight: 600;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            margin-left: 20px;
+            background: var(--section-bg-blue);
+            padding: 5px 15px;
+            border-radius: 20px;
+            height: fit-content;
         }
 
-        .custom-bullet {
-            list-style-type: none;
-        }
-
-        .custom-bullet li::before {
-            content: "- ";
-        }
-
-        /* Responsive */
+        /* --- MOBILE OPTIMIZATIONS (< 768px) --- */
         @media (max-width: 768px) {
-            .top-header, .content-body { flex-direction: column; }
-            .profile-col, .title-col, .left-col, .right-col { width: 100%; }
-            .title-banner { margin-left: 0; padding-left: 20px; border-radius: 20px; margin-top: -30px; padding-top: 40px; }
-            .skills-container { flex-direction: column; }
-            .skills-left { width: 100%; border-right: none; border-bottom: 2px solid rgba(255,255,255,0.4); padding-bottom: 10px; margin-bottom: 10px; padding-right: 0;}
-            .skills-right { width: 100%; padding-left: 0; }
+            body { padding: 10px; }
+            .container { border-radius: 0; }
+            header { padding: 30px 20px; }
+            .hero-wrapper { flex-direction: column; text-align: center; gap: 25px; }
+            .header-actions { justify-content: center; flex-direction: column; gap: 15px;}
+            .hero-content h1 { font-size: 2.2rem; }
+            .profile-img { width: 150px; height: 150px; }
+            main { padding: 20px; gap: 20px; }
+            .content-card { padding: 20px; }
+            .education-item { flex-direction: column; gap: 5px; }
+            .edu-date { margin-left: 0; align-self: flex-start; margin-top: 5px; font-size: 0.9rem;}
         }
     </style>
 </head>
 <body>
 
-<div class="resume-wrapper">
+<div class="container">
     
-    <div class="top-header">
-        <div class="profile-col">
-            <img src="profile.jpg" alt="Vasantha Rajan M" class="profile-img">
-        </div>
-        <div class="title-col">
-            <div class="title-banner">
+    <header>
+        <div class="hero-wrapper">
+            <div class="profile-image-container">
+                <img src="profile.jpg" alt="Vasantha Rajan M" class="profile-img">
+            </div>
+            <div class="hero-content">
                 <h1>VASANTHA RAJAN M</h1>
-                <h2>-SOFTWARE DEVELOPER</h2>
-            </div>
-            <div class="header-links">
-                LinkedIn: <a href="https://www.linkedin.com/in/vasantha-rajan-mangudi-1b82852b4" target="_blank">www.linkedin.com/in/vasantha-rajan-mangudi-1b82852b4</a><br>
-                Github: <a href="https://v-enterprises.github.io/digital-portfolio/" target="_blank">https://v-enterprises.github.io/digital-portfolio/</a>
+                <h2>Software Developer</h2>
+                
+                <div class="header-actions">
+                    <button class="btn-download" onclick="window.print()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Download Resume PDF
+                    </button>
+
+                    <div class="link-group">
+                        <a href="https://www.linkedin.com/in/vasantha-rajan-mangudi-1b82852b4" target="_blank">
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://v-enterprises.github.io/digital-portfolio/" target="_blank">
+                            GitHub Portfolio Website
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </header>
 
-    <div class="content-body">
+    <main>
         
-        <div class="left-col">
-            <div class="left-box">
-                <h3>CONTACT:</h3>
-                <p><strong>Ph.no:</strong><br>+91 9342789216</p>
-                <br>
-                <p><strong>Gmail:</strong><br>pmivanathpollonian@gmail.com</p>
-            </div>
-
-            <div class="left-box">
-                <h3>LANGUAGES:</h3>
-                <ul>
-                    <li>TAMIL - [NATIVE]</li>
-                    <li>ENGLISH - [ADVANCE]</li>
-                    <li>HINDI - [INTERMEDIATE]</li>
-                </ul>
-            </div>
-
-            <div class="left-box">
-                <h3>TOOLS:</h3>
-                <ul>
-                    <li>Linux (BOSS) & Windows</li>
-                    <li>Godot & Unity</li>
-                    <li>Git / GitHub</li>
-                    <li>Salesforce</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="right-col">
+        <div class="sidebar-column">
             
-            <div class="right-box">
-                <h3>PROFILE:</h3>
-                <p>Aspiring Software Developer passionate about transforming ideas into reality through Code. Experienced in building web and software projects using Python, HTML/CSS, JavaScript, and SQL. Skilled in navigating and customizing Linux environments, showcasing a deep curiosity for operating systems and software interaction. Known for efficient problem-solving, a passion for exploring new technologies, and a self-driven learning approach. Eager to contribute to innovative projects and grow as a developer.</p>
-            </div>
-
-            <div class="right-box">
-                <h3>PROJECTS:</h3>
-                <div class="project-item">
-                    <strong>1. SCHOOL MANAGEMENT SYSTEM:</strong>
-                    <p>Final year project built with Python Flask as the backend and HTML/CSS/JS as the Frontend. Used SQLAlchemy for database management.<br>
-                    [Python, Flask, SQLite, HTML, CSS, JS]</p>
-                </div>
-                <div class="project-item">
-                    <strong>2. FLIGHT TICKET BOOKING SYSTEM:</strong>
-                    <p>Built for a friend's project, featuring an interactive and simple UI design.<br>
-                    [Python, SQL, HTML, CSS, JS]</p>
-                </div>
-            </div>
-
-            <div class="right-box">
-                <h3>SKILLS:</h3>
-                <div class="skills-container">
-                    <div class="skills-left">
-                        <strong>Programming Languages:</strong><br>
-                        Python, C++, Kotlin<br>
-                        JavaScript, HTML/CSS<br>
-                        SQL
-                    </div>
-                    <div class="skills-right">
-                        <strong>Frameworks & Databases:</strong><br>
-                        Flask<br>
-                        SQLite
-                    </div>
-                </div>
-            </div>
-
-            <div class="right-box">
-                <h3>INTERESTS & ACTIVITIES:</h3>
-                <ul class="custom-bullet">
-                    <li>DIY Hardware Modification & Repair.</li>
-                    <li>Tech Content Creation (YouTube).</li>
-                    <li>Exploring Artificial Intelligence.</li>
-                    <li>Customizing Linux Environments.</li>
+            <section class="content-card card-blue-accent">
+                <h3 class="section-title">Contact</h3>
+                <ul class="info-list">
+                    <li>
+                        <span class="info-label">Phone</span>
+                        <span class="info-value">+91 9342789216</span>
+                    </li>
+                    <li>
+                        <span class="info-label">Email</span>
+                        <span class="info-value">pmivanathpollonian@gmail.com</span>
+                    </li>
                 </ul>
-            </div>
+            </section>
 
-            <div class="right-box">
-                <h3>EDUCATION:</h3>
-                <div class="education-item">
-                    <div>
-                        <strong>--SSLC</strong><br>
-                        Sasthaa matriculation school, Keelanilaikottai
-                    </div>
-                    <div>(2019-2020)</div>
+            <section class="content-card">
+                <h3 class="section-title">Tools & OS</h3>
+                <div class="skill-tag-list">
+                    <span class="skill-tag">Linux (BOSS)</span>
+                    <span class="skill-tag">Windows</span>
+                    <span class="skill-tag">Godot Engine</span>
+                    <span class="skill-tag">Unity</span>
+                    <span class="skill-tag">Git / GitHub</span>
+                    <span class="skill-tag">Salesforce</span>
                 </div>
-                <div class="education-item">
-                    <div>
-                        <strong>--11th&12th GRADE</strong><br>
-                        Ayyakannu government Hr.S school, Keelanilaikottai
-                    </div>
-                    <div>(2020-2022)</div>
-                </div>
-                <div class="education-item">
-                    <div>
-                        <strong>--B.Sc.ComputerScience</strong><br>
-                        Chikkanna govt art's college, Tirupur
-                    </div>
-                    <div>(2023-2026)</div>
-                </div>
-            </div>
+            </section>
 
+            <section class="content-card">
+                <h3 class="section-title">Languages</h3>
+                <ul class="info-list">
+                    <li><span class="info-value">Tamil [Native]</span></li>
+                    <li><span class="info-value">English [Advanced]</span></li>
+                    <li><span class="info-value">Hindi [Intermediate]</span></li>
+                </ul>
+            </section>
         </div>
-    </div>
 
+
+        <div class="content-column">
+            
+            <section class="content-card card-purple-accent">
+                <h3 class="section-title">Profile Summary</h3>
+                <p>Aspiring Software Developer passionate about transforming ideas into reality through Code. Experienced in building web and software projects using Python, HTML/CSS, JavaScript, and SQL. Skilled in navigating and customizing Linux environments, showcasing a deep curiosity for operating systems and software interaction. Known for efficient problem-solving, a passion for exploring new technologies, and a self-driven learning approach. Eager to contribute to innovative projects and grow as a developer.</p>
+            </section>
+
+             <section class="content-card">
+                <h3 class="section-title">Technical Skills</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div>
+                        <h4 style="margin-bottom: 10px; color: var(--accent-blue);">Programming Languages</h4>
+                        <ul style="list-style: disc; padding-left: 20px;">
+                            <li>Python, C++, Kotlin</li>
+                            <li>JavaScript, HTML/CSS</li>
+                            <li>SQL</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 10px; color: var(--accent-blue);">Frameworks & Databases</h4>
+                        <ul style="list-style: disc; padding-left: 20px;">
+                            <li>Flask</li>
+                            <li>SQLite</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-card">
+                <h3 class="section-title">Key Projects</h3>
+                
+                <div class="project-item">
+                    <h4 class="project-title">1. School Management System</h4>
+                    <p>Final year project built with Python Flask as the backend and HTML/CSS/JS as the Frontend. Used SQLAlchemy for database management for efficient record keeping.</p>
+                    <span class="tech-stack">Python | Flask | SQLite | HTML/CSS/JS</span>
+                </div>
+
+                <div class="project-item">
+                    <h4 class="project-title">2. Flight Ticket Booking System UI</h4>
+                    <p>Developed for a collaborative project, focusing on creating an interactive, user-friendly, and responsive user interface design.</p>
+                    <span class="tech-stack">Python | SQL | HTML/CSS/JS</span>
+                </div>
+            </section>
+
+
+            <section class="content-card">
+                <h3 class="section-title">Interests & Activities</h3>
+                <div class="skill-tag-list">
+                    <span class="skill-tag">DIY Hardware Modding</span>
+                    <span class="skill-tag">Tech Content Creation (YouTube)</span>
+                    <span class="skill-tag">Exploring AI</span>
+                    <span class="skill-tag">Linux Customization</span>
+                </div>
+            </section>
+
+            <section class="content-card">
+                <h3 class="section-title">Education History</h3>
+                
+                <div class="education-item">
+                    <div class="edu-details">
+                        <strong>B.Sc. Computer Science</strong>
+                        <span>Chikkanna Govt Arts College, Tirupur</span>
+                    </div>
+                    <div class="edu-date">2023 - 2026</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="edu-details">
+                        <strong>11th & 12th Grade</strong>
+                        <span>Ayyakannu Government Hr.Sec School</span>
+                    </div>
+                    <div class="edu-date">2020 - 2022</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="edu-details">
+                        <strong>SSLC</strong>
+                        <span>Sasthaa Matriculation School</span>
+                    </div>
+                    <div class="edu-date">2019 - 2020</div>
+                </div>
+            </section>
+
+        </div> </main>
 </div>
 
 </body>
