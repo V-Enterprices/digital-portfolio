@@ -3,192 +3,336 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>my portfolio </title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Vasantha Rajan M - Portfolio</title>
+    <style>
+        :root {
+            --bg-main: #8ba9d4;
+            --box-bg: #6085bb;
+            --sidebar-border: #800080; /* Purple for accents */
+            --text-light: #ffffff;
+            --text-dark: #000000;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #e0e8f5; /* Light background for the whole page */
+            font-family: var(--font-main);
+            color: var(--text-light);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .resume-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--bg-main);
+            display: flex;
+            flex-direction: row;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        /* --- LEFT SIDEBAR --- */
+        .sidebar {
+            width: 35%;
+            padding: 30px 20px;
+            border-right: 5px solid #7c8fb5;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .profile-img-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid var(--sidebar-border);
+            object-fit: cover;
+            background-color: #ccc; /* Placeholder color */
+        }
+
+        .sidebar-box {
+            border: 4px solid var(--sidebar-border);
+            border-radius: 15px;
+            padding: 15px;
+            background-color: transparent;
+            color: var(--text-dark);
+        }
+
+        .sidebar-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            text-transform: uppercase;
+        }
+
+        .sidebar-box ul {
+            list-style-type: none;
+        }
+
+        .sidebar-box ul li {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            font-weight: 500;
+            word-wrap: break-word;
+        }
+
+        /* --- RIGHT MAIN CONTENT --- */
+        .main-content {
+            width: 65%;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .header h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        .header .links a {
+            color: var(--sidebar-border);
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .header .links a:hover {
+            text-decoration: underline;
+        }
+
+        .section-box {
+            background-color: var(--box-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .section-box h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 5px;
+        }
+
+        .project-item {
+            margin-bottom: 15px;
+        }
+
+        .project-item strong {
+            font-size: 1.1rem;
+            display: block;
+        }
+
+        .project-tags {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #d1e0ff;
+            margin-top: 5px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .education-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            align-items: flex-start;
+        }
+
+        .education-item-details {
+            max-width: 70%;
+        }
+
+        .education-item-date {
+            font-weight: bold;
+        }
+
+        ul.custom-bullet {
+            list-style-type: none;
+        }
+        ul.custom-bullet li::before {
+            content: "- ";
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            .resume-wrapper {
+                flex-direction: column;
+            }
+            .sidebar, .main-content {
+                width: 100%;
+                border-right: none;
+            }
+            .sidebar {
+                border-bottom: 5px solid #7c8fb5;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            .education-item {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
 
-        <nav>
-<center>
-            <h1 style="border:2px solid black">VASANTHA RAJAN MANGUDI</h1>
-<ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-     </center>
-            <div class="profile-photo">
-             <img src="avatar.jpg" alt="Profile Photo" width="300" height="300">
-            
+<div class="resume-wrapper">
+    
+    <div class="sidebar">
+        <div class="profile-img-container">
+            <img src="your-photo.jpg" alt="Vasantha Rajan M" class="profile-img">
+        </div>
+
+        <div class="sidebar-box">
+            <h3>Contact:</h3>
+            <div class="contact-info">
+                <p><strong>Ph.no:</strong> <br>+91 9342789216</p>
+                <p><strong>Gmail:</strong> <br>pmivanathpollonian@gmail.com</p>
             </div>
-        </nav>
-    </header>
-
-    <section id="about">
-        <h2>About Me</h2>
-        <p>I am Vasantha Rajan Mangudi, a dedicated Full Stack Developer with a strong background 
-        in cutting-edge programming applications and technologies. With six years of experience 
-        providing technical support for India's Intelligence Agency (RAW), I have honed my skills
-         in handling complex technical challenges with precision and efficiency. My expertise spans 
-         across the latest and most effective programming tools and frameworks, ensuring I stay at the 
-         forefront of technological advancements. Equipped with an education in advanced technical
-          support studies, I bring a unique blend of knowledge and experience to every project I undertake.
-           At 31 years old, I am committed to leveraging my skills to develop innovative solutions and drive 
-           impactful results.
-
-</p>
-    </section>
-
-    <section id="projects">
-        <h2>Projects</h2>
-        <div class="project-card">
-            <h3>Demo front&back end web application</h3>
-            <p>This project is a simple web app that uses:
-<ul>
-<li>✅ HTML for structure(creating the form)</li>
-<li>✅ CSS for design(styling the form)</li>
-<li>✅ JavaScript for functionality(sending form data to the server)</li>
-<li>✅ Node.js with Express.js for the back end(handling form data and sending a response)</li>
-</ul>
-How it Works:
-<ol>
-<li>The user fills out the form.</li>
-<li>When the form is submitted, JavaScript sends the data to the server.</li>
-<li>The Node.js server receives the data and responds with a message.</li>
-<li>The message is displayed back on the web page.</li>
-</ol>
-
-This setup is simple yet powerful for building interactive web applications.<br>
-<p><a href="https://github.com/Vanath0143/FB_END_DM_WEB" target="_blank">PROJECT LINK</a></p>
-
-</p>
         </div>
-        <div class="project-card">
-            <h3>Project 2</h3>
-            <p>This project is a simple To-Do List App built using HTML, CSS, and JavaScript.
-How it Works:
-<ol>
-<li>✅HTML:</li>
-Creates the app structure with an input box, add button, and a list for tasks.
-<li>✅CSS:</li>
-Styles the app with a clean look, green buttons, and a user-friendly layout.
-<li>✅JavaScript:</li>
-Adds new tasks when you type in the input box and click "Add Task".
-Each task gets a Delete button that removes it when clicked.
-<p><a href="https://github.com/Vanath0143/DY_FTR_WEB_APP_DE" target="_blank">PROJECT LINK</a></p>
-</p>
-<button><a href="resume.jpg" target="_blank">View resume</a>
-</button><br>
-<button><a href="resume .pdf" download="resume .pdf">Download resume</a></button>
+
+        <div class="sidebar-box">
+            <h3>Languages:</h3>
+            <ul>
+                <li>TAMIL - [NATIVE]</li>
+                <li>ENGLISH - [ADVANCE]</li>
+                <li>HINDI - [INTERMEDIATE]</li>
+            </ul>
         </div>
-    </section>
 
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <p>Email: <a href="mailto: pmivanathpollonian@gmail.com">pmivanathpollonian@gmail.com</a></p>
-        <p>GitHub: <a href="#" target="_blank">https://github.com/Vanath0143</a></p>
-    </section>
+        <div class="sidebar-box">
+            <h3>Tools:</h3>
+            <ul>
+                <li>Linux (BOSS) & Windows</li>
+                <li>Godot & Unity</li>
+                <li>Git / GitHub</li>
+                <li>Salesforce</li>
+            </ul>
+        </div>
+    </div>
 
-    <footer>
-        <p>&copy; 2025 VASANTHA RAJAN MANGUDI. All Rights Reserved.</p>
-    </footer>
+    <div class="main-content">
+        
+        <div class="header">
+            <h1>VASANTHA RAJAN M</h1>
+            <h2>-SOFTWARE DEVELOPER</h2>
+            <div class="links">
+                <a href="https://www.linkedin.com/in/vasantha-rajan-mangudi-1b82852b4" target="_blank">LinkedIn: www.linkedin.com/in/vasantha-rajan-mangudi-1b82852b4</a>
+                <a href="https://v-enterprises.github.io/digital-portfolio/" target="_blank">Github: https://v-enterprises.github.io/digital-portfolio/</a>
+            </div>
+        </div>
 
-    <script src="script.js"></script>
+        <div class="section-box">
+            <h3>Profile:</h3>
+            <p>Aspiring Software Developer passionate about transforming ideas into reality through Code. Experienced in building web and software projects using Python, HTML/CSS, JavaScript, and SQL. Skilled in navigating and customizing Linux environments, showcasing a deep curiosity for operating systems and software interaction. Known for efficient problem-solving, a passion for exploring new technologies, and a self-driven learning approach. Eager to contribute to innovative projects and grow as a developer.</p>
+        </div>
+
+        <div class="section-box">
+            <h3>Projects:</h3>
+            <div class="project-item">
+                <strong>1. SCHOOL MANAGEMENT SYSTEM:</strong>
+                <p>Final year project built with Python Flask as the backend and HTML/CSS/JS as the Frontend. Used SQLAlchemy for database management.</p>
+                <p class="project-tags">[Python, Flask, SQLite, HTML, CSS, JS]</p>
+            </div>
+            <div class="project-item">
+                <strong>2. FLIGHT TICKET BOOKING SYSTEM:</strong>
+                <p>Built for a friend's project, featuring an interactive and simple UI design.</p>
+                <p class="project-tags">[Python, SQL, HTML, CSS, JS]</p>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3>Skills:</h3>
+            <div class="skills-grid">
+                <div>
+                    <strong>Programming Languages:</strong><br>
+                    Python, C++, Kotlin<br>
+                    JavaScript, HTML/CSS<br>
+                    SQL
+                </div>
+                <div>
+                    <strong>Frameworks & Databases:</strong><br>
+                    Flask<br>
+                    SQLite
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3>Interests & Activities:</h3>
+            <ul class="custom-bullet">
+                <li>DIY Hardware Modification & Repair.</li>
+                <li>Tech Content Creation (YouTube).</li>
+                <li>Exploring Artificial Intelligence.</li>
+                <li>Customizing Linux Environments.</li>
+            </ul>
+        </div>
+
+        <div class="section-box">
+            <h3>Education:</h3>
+            <div class="education-item">
+                <div class="education-item-details">
+                    <strong>--SSLC</strong><br>
+                    Sasthaa matriculation school, Keelanilaikottai
+                </div>
+                <div class="education-item-date">(2019-2020)</div>
+            </div>
+            <div class="education-item">
+                <div class="education-item-details">
+                    <strong>--11th&12th GRADE</strong><br>
+                    Ayyakannu government Hr.S school, Keelanilaikottai
+                </div>
+                <div class="education-item-date">(2020-2022)</div>
+            </div>
+            <div class="education-item">
+                <div class="education-item-details">
+                    <strong>--B.Sc.ComputerScience</strong><br>
+                    Chikkanna govt art's college, Tirupur
+                </div>
+                <div class="education-item-date">(2023-2026)</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 </body>
 </html>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #f0f2f5;
-    color: #333;
-}
-
-header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    position: relative;
-}
-
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.profile-photo {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-}
-
-.profile-photo img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;  /* Circular Image */
-    border: 3px solid white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-section {
-    padding: 50px 20px;
-    text-align: center;
-}
-
-.project-card {
-    background-color: #fff;
-    border: 2px solid #4CAF50;
-    border-radius: 8px;
-    margin: 15px auto;
-    padding: 20px;
-    max-width: 400px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-footer {
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-}1
-</style>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-    const links = document.querySelectorAll('nav a');
-
-    links.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-
-            window.scrollTo({
-                top: targetElement.offsetTop - 50,
-                behavior: 'smooth'
-            });
-        });
-    });
-});
-    </script>
