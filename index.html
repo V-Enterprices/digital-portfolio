@@ -6,58 +6,91 @@
     <title>Vasantha Rajan M | Software Developer Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- CSS VARIABLES (Theme Colors) --- */
+        /* --- CSS VARIABLES (Light Theme Default) --- */
         :root {
-            /* A modern gradient background */
-            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --text-primary: #2d3748;
-            --text-secondary: #4a5568;
-            --text-light: #ffffff;
-            /* Accent colors based on your previous purple/blue preference */
             --accent-blue: #4c51bf; 
             --accent-purple: #805ad5;
-            --card-bg: #ffffff;
-            --section-bg-blue: #ebf4ff;
-            --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.06);
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            
+            /* Backgrounds & Glassmorphism */
+            --bg-gradient: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --header-bg: rgba(255, 255, 255, 0.3);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --card-hover-bg: rgba(255, 255, 255, 0.8);
+            --tag-bg: rgba(255, 255, 255, 0.6);
+            --link-bg: rgba(255, 255, 255, 0.4);
         }
 
-        /* --- GLOBAL RESET & BASE STYLES --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* --- DARK THEME VARIABLES --- */
+        body.dark-theme {
+            --text-primary: #f7fafc;
+            --text-secondary: #a0aec0;
+            
+            /* Darker cinematic animated background */
+            --bg-gradient: linear-gradient(-45deg, #0f172a, #1e1b4b, #172554, #312e81);
+            --glass-bg: rgba(15, 23, 42, 0.65);
+            --header-bg: rgba(15, 23, 42, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            --card-hover-bg: rgba(30, 41, 59, 0.85);
+            --tag-bg: rgba(30, 41, 59, 0.6);
+            --link-bg: rgba(255, 255, 255, 0.05);
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        /* --- GLOBAL & ANIMATED BACKGROUND --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: var(--bg-gradient);
             color: var(--text-primary);
             line-height: 1.7;
-            padding: 20px;
+            padding: 30px 20px;
             min-height: 100vh;
+            /* Animated Gradient Background tied to CSS Variable */
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            transition: background 0.5s ease, color 0.3s ease;
         }
 
-        /* The main container that constrains width on large screens */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--glass-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 10px; }
+        
+        /* Custom Text Selection */
+        ::selection { background: var(--accent-purple); color: #fff; }
+
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        ul { list-style: none; }
+
+        /* --- CONTAINER & GLASSMORPHISM --- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background-color: var(--text-light);
-            border-radius: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            box-shadow: var(--glass-shadow);
+            transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
         }
 
-        a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
-        ul { list-style: none; }
-
-        /* Utility classes for typography */
-        h1, h2, h3 { color: var(--text-primary); font-weight: 700; }
-        .text-accent { color: var(--accent-blue); }
+        h1, h2, h3 { color: var(--text-primary); font-weight: 700; transition: color 0.3s ease;}
+        
         .section-title {
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
@@ -66,310 +99,216 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        /* Adds a small underline accent to titles */
         .section-title::after {
             content: '';
-            position: absolute;
-            left: 0;
-            bottom: -5px;
-            width: 50px;
-            height: 4px;
+            position: absolute; left: 0; bottom: -5px;
+            width: 50px; height: 4px;
             background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
             border-radius: 2px;
+            transition: width 0.3s ease;
         }
+        .content-card:hover .section-title::after { width: 100%; }
 
-        /* --- HEADER & HERO SECTION --- */
+        /* --- HEADER & HERO --- */
         header {
-            padding: 40px;
-            background: linear-gradient(to right, #ffffff, #f7fafc);
-            border-bottom: 1px solid #e2e8f0;
+            padding: 50px;
+            border-bottom: 1px solid var(--glass-border);
+            background: var(--header-bg);
+            transition: background 0.3s ease, border 0.3s ease;
         }
 
         .hero-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            flex-wrap: wrap; /* Allows wrapping on smaller screens */
+            display: flex; align-items: center; gap: 50px; flex-wrap: wrap;
         }
 
         .profile-image-container {
-            flex-shrink: 0;
-            position: relative;
+            position: relative; flex-shrink: 0;
+            animation: float 6s ease-in-out infinite;
         }
 
-        /* The glowing ring around the photo */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
         .profile-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid var(--card-bg);
-            box-shadow: 0 0 20px rgba(76, 81, 191, 0.3);
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Decorative background blob behind photo */
-        .profile-image-container::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: -20px;
-            right: -20px;
-            bottom: -20px;
-            background: linear-gradient(135deg, rgba(76, 81, 191, 0.2) 0%, rgba(128, 90, 213, 0.2) 100%);
-            z-index: 1;
-            border-radius: 50%;
-            filter: blur(20px);
-        }
-
-        .hero-content {
-            flex-grow: 1;
+            width: 220px; height: 220px; border-radius: 50%;
+            object-fit: cover; border: 4px solid var(--glass-border);
+            box-shadow: 0 0 30px rgba(128, 90, 213, 0.4);
+            position: relative; z-index: 2;
+            transition: border 0.3s ease;
         }
 
         .hero-content h1 {
-            font-size: 3rem;
-            line-height: 1.2;
-            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 3.5rem; line-height: 1.2;
+            background: linear-gradient(to right, var(--text-primary), var(--accent-purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
         }
 
         .hero-content h2 {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
+            font-size: 1.5rem; font-weight: 400; color: var(--text-secondary);
+            margin-bottom: 25px; min-height: 35px;
         }
 
-        /* The Header Links Area */
+        /* Typewriter Cursor */
+        .cursor {
+            display: inline-block; width: 3px; background-color: var(--accent-purple);
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* --- BUTTONS & LINKS --- */
         .header-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #edf2f7;
+            display: flex; flex-wrap: wrap; gap: 20px; align-items: center;
+            margin-top: 20px; padding-top: 25px;
+            border-top: 1px solid var(--glass-border);
         }
 
-        .link-group a {
-            display: block;
-            font-weight: 600;
-            color: var(--accent-blue);
-            font-size: 0.95rem;
-        }
-        .link-group a:hover { color: var(--accent-purple); text-decoration: underline; }
-
-        /* --- THE DOWNLOAD BUTTON --- */
         .btn-download {
-            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: 600;
-            box-shadow: var(--shadow-soft);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none; /* Ensures the text inside the anchor doesn't have an underline */
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white; padding: 12px 24px; border-radius: 50px; font-weight: 600;
+            box-shadow: 0 10px 20px rgba(128, 90, 213, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer;
         }
 
         .btn-download:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-            filter: brightness(1.1);
-            color: white; /* Maintains text color on hover */
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 25px rgba(128, 90, 213, 0.5);
+        }
+
+        /* Theme Toggle Button */
+        .btn-theme {
+            background: var(--link-bg);
+            color: var(--text-primary);
+            padding: 12px 20px; border-radius: 50px; font-weight: 600;
+            border: 1px solid var(--glass-border);
+            cursor: pointer; display: flex; align-items: center; gap: 8px;
+            transition: all 0.3s ease; backdrop-filter: blur(5px);
         }
         
-       /* --- PRINT/PDF OPTIMIZATIONS --- */
-        @media print {
-            /* Hide the download button on the paper */
-            .btn-download { display: none !important; }
-            
-            /* Shrink overall sizing to fit more on the page */
-            body { background: white; padding: 0; font-size: 10pt; }
-            .container { box-shadow: none; margin: 0; width: 100%; border-radius: 0; }
-            
-            /* Compact the header */
-            header { padding: 15px; }
-            .profile-img { width: 100px; height: 100px; border: 2px solid #ccc; box-shadow: none; }
-            .profile-image-container::before { display: none; } /* removes blur effect to save ink */
-            .hero-content h1 { font-size: 20pt; background: none; -webkit-text-fill-color: black; color: black; }
-            .hero-content h2 { font-size: 13pt; margin-bottom: 5px; }
-            .header-actions { margin-top: 5px; padding-top: 5px; }
-            
-            /* Compact the main grid layout */
-            main { padding: 15px; gap: 15px; }
-            
-            /* THE FIX: Prevent cards and items from splitting across pages */
-            .content-card {
-                padding: 15px;
-                margin-bottom: 15px;
-                box-shadow: none !important;
-                border: 1px solid #ddd;
-                page-break-inside: avoid; /* Forces whole card to next page if it doesn't fit */
-                break-inside: avoid;
-            }
-
-            .education-item, .project-item {
-                page-break-inside: avoid; /* Prevents a single item from hanging */
-                break-inside: avoid;
-            }
+        .btn-theme:hover {
+            background: var(--accent-purple);
+            color: white;
+            transform: translateY(-3px);
         }
 
-        /* --- MAIN CONTENT GRID LAYOUT --- */
-        /* This is the core of the responsive design */
+        .link-group a {
+            font-weight: 600; color: var(--accent-blue); padding: 8px 15px;
+            border-radius: 8px; transition: all 0.3s ease;
+            background: var(--link-bg); margin-right: 10px;
+            display: inline-block;
+        }
+        
+        .link-group a:hover {
+            background: var(--accent-purple); color: white;
+            transform: translateY(-2px);
+        }
+
+        /* --- MAIN GRID & CARDS --- */
         main {
-            display: grid;
-            /* By default (mobile), 1 column */
-            grid-template-columns: 1fr; 
-            gap: 30px;
-            padding: 40px;
-            background-color: #f8fbff;
+            display: grid; grid-template-columns: 1fr; gap: 30px; padding: 40px;
         }
 
-        /* On larger screens (tablets and up), split into 2 columns */
         @media (min-width: 900px) {
-            main {
-                /* Left column 35%, Right column 65% */
-                grid-template-columns: 3.5fr 6.5fr;
-            }
-            /* Sticky sidebar for desktop */
-            .sidebar-column {
-                position: sticky;
-                top: 40px;
-                align-self: start;
-            }
+            main { grid-template-columns: 3.5fr 6.5fr; }
+            .sidebar-column { position: sticky; top: 40px; align-self: start; }
         }
 
-        /* --- CARDS & SECTIONS --- */
         .content-card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: var(--shadow-soft);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            padding: 35px; border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
             margin-bottom: 30px;
-            border: 1px solid #edf2f7;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease, border 0.3s ease;
+            /* Scroll reveal initial state */
+            opacity: 0; transform: translateY(40px);
+        }
+
+        .content-card.reveal-active {
+            opacity: 1; transform: translateY(0);
         }
 
         .content-card:hover {
-            box-shadow: var(--shadow-hover);
-            /* Subtle lift effect on hover */
             transform: translateY(-5px);
+            background: var(--card-hover-bg);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
 
-        /* Specific card styling */
-        .card-blue-accent {
-            background: linear-gradient(to bottom right, #ffffff, #f3f4fd);
-            border-left: 5px solid var(--accent-blue);
-        }
-        
-        .card-purple-accent {
-             background: linear-gradient(to bottom right, #ffffff, #fbf3fd);
-             border-left: 5px solid var(--accent-purple);
-        }
+        /* --- LISTS, TAGS, & TIMELINES --- */
+        .info-list li { margin-bottom: 18px; display: flex; flex-direction: column; }
+        .info-label { font-weight: 700; font-size: 0.85rem; color: var(--accent-purple); text-transform: uppercase; letter-spacing: 1px;}
+        .info-value { font-size: 1.1rem; font-weight: 600;}
 
-        /* --- LIST STYLES (Contact, Skills) --- */
-        .info-list li {
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-        }
-        .info-label {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--accent-blue);
-            text-transform: uppercase;
-        }
-        .info-value { font-size: 1.1rem; word-break: break-word; }
-
-        .skill-tag-list { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-tag-list { display: flex; flex-wrap: wrap; gap: 12px; }
         .skill-tag {
-            background: var(--section-bg-blue);
-            color: var(--accent-blue);
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
+            background: var(--tag-bg);
+            color: var(--text-primary); padding: 8px 18px; border-radius: 50px;
+            font-weight: 600; font-size: 0.9rem;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+        }
+        .skill-tag:hover {
+            background: var(--accent-blue); color: white;
+            transform: scale(1.05) rotate(-2deg); border-color: transparent;
         }
 
-        /* --- PROJECT ITEMS --- */
-        .project-item {
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #edf2f7;
-        }
-        .project-item:last-child { border-bottom: none; }
-        .project-title { font-size: 1.2rem; margin-bottom: 5px; }
+        .project-item { padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid var(--glass-border); }
+        .project-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
+        .project-title { font-size: 1.3rem; margin-bottom: 8px; color: var(--text-primary); transition: color 0.3s ease;}
+        
         .tech-stack {
-            font-family: monospace;
-            color: var(--accent-purple);
-            background: #f3ebff;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            display: inline-block;
-            margin-top: 10px;
+            font-family: monospace; color: white; background: var(--accent-purple);
+            padding: 4px 10px; border-radius: 6px; font-size: 0.85rem;
+            display: inline-block; margin-top: 12px; box-shadow: 0 4px 10px rgba(128, 90, 213, 0.3);
         }
 
-        /* --- EDUCATION TIMELINE STYLE --- */
         .education-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            position: relative;
-            padding-left: 20px;
+            display: flex; justify-content: space-between; margin-bottom: 25px;
+            position: relative; padding-left: 25px;
         }
-        /* Vertical line connects education items */
         .education-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 5px;
-            bottom: -25px;
-            width: 2px;
-            background: var(--accent-blue);
-            opacity: 0.3;
+            content: ''; position: absolute; left: 0; top: 8px; bottom: -35px;
+            width: 3px; background: linear-gradient(to bottom, var(--accent-blue), transparent);
+            border-radius: 3px;
         }
         .education-item:last-child::before { display: none; }
-
-        .edu-details strong { display: block; font-size: 1.1rem; color: var(--accent-blue); }
-        .edu-date {
-            font-weight: 600;
-            color: var(--text-secondary);
-            white-space: nowrap;
-            margin-left: 20px;
-            background: var(--section-bg-blue);
-            padding: 5px 15px;
-            border-radius: 20px;
-            height: fit-content;
+        .education-item::after {
+            content: ''; position: absolute; left: -4px; top: 6px;
+            width: 11px; height: 11px; border-radius: 50%; background: var(--accent-purple);
+            box-shadow: 0 0 10px var(--accent-purple);
         }
 
-        /* --- MOBILE OPTIMIZATIONS (< 768px) --- */
+        .edu-details strong { display: block; font-size: 1.15rem; color: var(--text-primary); transition: color 0.3s ease;}
+        .edu-date {
+            font-weight: 600; color: white; background: var(--text-secondary);
+            padding: 5px 15px; border-radius: 20px; height: fit-content; font-size: 0.85rem;
+            transition: background 0.3s ease;
+        }
+
+        /* --- MOBILE OPTIMIZATIONS --- */
         @media (max-width: 768px) {
             body { padding: 10px; }
-            .container { border-radius: 0; }
             header { padding: 30px 20px; }
-            .hero-wrapper { flex-direction: column; text-align: center; gap: 25px; }
-            .header-actions { justify-content: center; flex-direction: column; gap: 15px;}
-            .hero-content h1 { font-size: 2.2rem; }
-            .profile-img { width: 150px; height: 150px; }
-            main { padding: 20px; gap: 20px; }
-            .content-card { padding: 20px; }
-            .education-item { flex-direction: column; gap: 5px; }
-            .edu-date { margin-left: 0; align-self: flex-start; margin-top: 5px; font-size: 0.9rem;}
+            .hero-wrapper { flex-direction: column; text-align: center; gap: 20px; }
+            .header-actions { justify-content: center; flex-direction: column; }
+            .link-group { text-align: center; margin-top: 10px;}
+            .link-group a { margin-bottom: 10px; }
+            .hero-content h1 { font-size: 2.5rem; }
+            main { padding: 20px; }
+            .education-item { flex-direction: column; gap: 8px; }
+            .edu-date { align-self: flex-start; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    
     <header>
         <div class="hero-wrapper">
             <div class="profile-image-container">
@@ -377,22 +316,22 @@
             </div>
             <div class="hero-content">
                 <h1>VASANTHA RAJAN M</h1>
-                <h2>Software Developer</h2>
+                <h2><span id="typewriter"></span><span class="cursor">&nbsp;</span></h2>
                 
                 <div class="header-actions">
-                    <!-- MODIFIED: Changed from <button> to <a> tag with 'download' attribute -->
                     <a href="RESUME1.pdf" download class="btn-download">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         Download Resume PDF
                     </a>
+                    
+                    <!-- NEW DARK MODE TOGGLE -->
+                    <button id="theme-toggle" class="btn-theme">
+                        🌙 Dark Mode
+                    </button>
 
                     <div class="link-group">
-                        <a href="https://www.linkedin.com/in/vasantha-rajan-mangudi-1b82852b4" target="_blank">
-                            LinkedIn Profile
-                        </a>
-                        <a href="https://github.com/V-Enterprices" target="_blank">
-                            GitHub Portfolio Website
-                        </a>
+                        <a href="https://www.linkedin.com/in/vasantha-rajan-mangudi-1b82852b4" target="_blank">LinkedIn</a>
+                        <a href="https://github.com/V-Enterprices" target="_blank">GitHub</a>
                     </div>
                 </div>
             </div>
@@ -400,24 +339,16 @@
     </header>
 
     <main>
-        
         <div class="sidebar-column">
-            
-            <section class="content-card card-blue-accent">
+            <section class="content-card js-reveal">
                 <h3 class="section-title">Contact</h3>
                 <ul class="info-list">
-                    <li>
-                        <span class="info-label">Phone</span>
-                        <span class="info-value">+91 9342789216</span>
-                    </li>
-                    <li>
-                        <span class="info-label">Email</span>
-                        <span class="info-value">pmivanathpollonian@gmail.com</span>
-                    </li>
+                    <li><span class="info-label">Phone</span><span class="info-value">+91 9342789216</span></li>
+                    <li><span class="info-label">Email</span><span class="info-value">vasantharajanmangudi@gmail.com</span></li>
                 </ul>
             </section>
 
-            <section class="content-card">
+            <section class="content-card js-reveal">
                 <h3 class="section-title">Tools & OS</h3>
                 <div class="skill-tag-list">
                     <span class="skill-tag">Linux (BOSS)</span>
@@ -429,7 +360,7 @@
                 </div>
             </section>
 
-            <section class="content-card">
+            <section class="content-card js-reveal">
                 <h3 class="section-title">Languages</h3>
                 <ul class="info-list">
                     <li><span class="info-value">Tamil [Native]</span></li>
@@ -439,65 +370,59 @@
             </section>
         </div>
 
-
         <div class="content-column">
-            
-            <section class="content-card card-purple-accent">
+            <section class="content-card js-reveal">
                 <h3 class="section-title">Profile Summary</h3>
                 <p>Aspiring Software Developer passionate about transforming ideas into reality through Code. Experienced in building web and software projects using Python, HTML/CSS, JavaScript, and SQL. Skilled in navigating and customizing Linux environments, showcasing a deep curiosity for operating systems and software interaction. Known for efficient problem-solving, a passion for exploring new technologies, and a self-driven learning approach. Eager to contribute to innovative projects and grow as a developer.</p>
             </section>
 
-             <section class="content-card">
+             <section class="content-card js-reveal">
                 <h3 class="section-title">Technical Skills</h3>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
                     <div>
-                        <h4 style="margin-bottom: 10px; color: var(--accent-blue);">Programming Languages</h4>
-                        <ul style="list-style: disc; padding-left: 20px;">
-                            <li>Python, C++, Kotlin</li>
-                            <li>JavaScript, HTML/CSS</li>
-                            <li>SQL</li>
+                        <h4 style="margin-bottom: 10px; color: var(--accent-purple);">Programming</h4>
+                        <ul style="list-style: none;">
+                            <li>▹ Python, C++, Kotlin</li>
+                            <li>▹ JavaScript, HTML/CSS</li>
+                            <li>▹ SQL</li>
                         </ul>
                     </div>
                     <div>
-                        <h4 style="margin-bottom: 10px; color: var(--accent-blue);">Frameworks & Databases</h4>
-                        <ul style="list-style: disc; padding-left: 20px;">
-                            <li>Flask</li>
-                            <li>SQLite</li>
+                        <h4 style="margin-bottom: 10px; color: var(--accent-purple);">Frameworks & DB</h4>
+                        <ul style="list-style: none;">
+                            <li>▹ Django & Flask</li>
+                            <li>▹ SQLite</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <section class="content-card">
+            <section class="content-card js-reveal">
                 <h3 class="section-title">Key Projects</h3>
-                
                 <div class="project-item">
                     <h4 class="project-title">1. School Management System</h4>
-                    <p>Final year project built with Python Flask as the backend and HTML/CSS/JS as the Frontend. Used SQLAlchemy for database management for efficient record keeping.</p>
-                    <span class="tech-stack">Python | Flask | SQLite | HTML/CSS/JS</span>
+                    <p>Final year project built with Python Django as the backend and HTML/CSS/JS as the Frontend. Used SQLite for efficient database record-keeping.</p>
+                    <span class="tech-stack">Python | Django | SQLite | JS</span>
                 </div>
-
                 <div class="project-item">
-                    <h4 class="project-title">2. Flight Ticket Booking System UI</h4>
+                    <h4 class="project-title">2. Flight Ticket Booking System</h4>
                     <p>Developed for a collaborative project, focusing on creating an interactive, user-friendly, and responsive user interface design.</p>
                     <span class="tech-stack">Python | SQL | HTML/CSS/JS</span>
                 </div>
             </section>
 
-
-            <section class="content-card">
+            <section class="content-card js-reveal">
                 <h3 class="section-title">Interests & Activities</h3>
                 <div class="skill-tag-list">
                     <span class="skill-tag">DIY Hardware Modding</span>
-                    <span class="skill-tag">Tech Content Creation (YouTube)</span>
+                    <span class="skill-tag">Tech Content Creation</span>
                     <span class="skill-tag">Exploring AI</span>
                     <span class="skill-tag">Linux Customization</span>
                 </div>
             </section>
 
-            <section class="content-card">
+            <section class="content-card js-reveal">
                 <h3 class="section-title">Education History</h3>
-                
                 <div class="education-item">
                     <div class="edu-details">
                         <strong>B.Sc. Computer Science</strong>
@@ -505,7 +430,6 @@
                     </div>
                     <div class="edu-date">2023 - 2026</div>
                 </div>
-
                 <div class="education-item">
                     <div class="edu-details">
                         <strong>11th & 12th Grade</strong>
@@ -513,7 +437,6 @@
                     </div>
                     <div class="edu-date">2020 - 2022</div>
                 </div>
-
                 <div class="education-item">
                     <div class="edu-details">
                         <strong>SSLC</strong>
@@ -522,9 +445,71 @@
                     <div class="edu-date">2019 - 2020</div>
                 </div>
             </section>
-
-        </div> </main>
+        </div>
+    </main>
 </div>
+
+<!-- MODERN JAVASCRIPT INTERACTIONS -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        
+        // 1. Dark Mode Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        
+        // Check local storage for saved theme preference
+        if(localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-theme');
+            themeToggleBtn.innerHTML = '☀️ Light Mode';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            
+            if(body.classList.contains('dark-theme')) {
+                localStorage.setItem('theme', 'dark');
+                themeToggleBtn.innerHTML = '☀️ Light Mode';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeToggleBtn.innerHTML = '🌙 Dark Mode';
+            }
+        });
+
+        // 2. Typewriter Effect
+        const textToType = "Software Developer & Tech Enthusiast";
+        const typewriterElement = document.getElementById("typewriter");
+        let charIndex = 0;
+
+        function type() {
+            if (charIndex < textToType.length) {
+                typewriterElement.textContent += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 80); // Speed of typing
+            }
+        }
+        setTimeout(type, 500); // Initial delay
+
+        // 3. Scroll Reveal Animations via IntersectionObserver
+        const revealElements = document.querySelectorAll(".js-reveal");
+        
+        const revealOptions = {
+            threshold: 0.1, // Trigger when 10% of element is visible
+            rootMargin: "0px 0px -50px 0px" 
+        };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("reveal-active");
+                observer.unobserve(entry.target); // Stop observing once revealed
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => {
+            revealOnScroll.observe(el);
+        });
+    });
+</script>
 
 </body>
 </html>
